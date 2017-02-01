@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>image/icon.png</file>
+        <file>image/widget/delete.png</file>
+        <file>image/widget/Invisible.png</file>
+        <file>image/widget/Visiblet.png</file>
+        <file>image/widget/new.png</file>
+        <file>image/widget/unpin.png</file>
+        <file>image/widget/pin.png</file>
+        <file>image/widget/edit.png</file>
+        <file>image/widget/close.png</file>
+    </qresource>
+</RCC>
