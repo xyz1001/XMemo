@@ -1,4 +1,4 @@
-QWidget#MemoWIdget, #contentView {
+QWidget#MemoWidget, #contentView {
     background-color: #8D6E63;
 }
 

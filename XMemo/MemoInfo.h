@@ -27,21 +27,21 @@ class MemoInfo : public QObject
 private:
     unsigned int id;    //便签ID，用时间戳表示
     QString content;    //便签内容
-    Qt::GlobalColor color;  //便签颜色
+    int color;  //便签颜色
     MemoWidget *memoWidget = nullptr; //便签对应窗体
     bool visibility;    //是否在桌面显示
     QPoint pos = QPoint(0, 0);
 public:
     MemoInfo();
-    MemoInfo(unsigned int id, QString content, Qt::GlobalColor color, bool visibility, QPoint pos);
+    MemoInfo(unsigned int id, QString content, int color, bool visibility, QPoint pos);
     ~MemoInfo();
 
     QString getDate() const;
     unsigned int getId() const;
     QString getContent() const;
     void setContent(const QString &content);
-    Qt::GlobalColor getColor() const;
-    void setColor(Qt::GlobalColor color);
+    int getColor() const;
+    void setColor(int color);
     MemoWidget *getMemoWidget() const;  //窗体隐藏时返回nullptr
     bool isVisible() const;
     QPoint getPosition() const;

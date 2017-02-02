@@ -1,10 +1,9 @@
 #include "MemoWidget.h"
-#include "DbOperator.h"
 #include <QFile>
 
 MemoWidget::MemoWidget(MemoInfo *memoInfo, bool isEditMode, QWidget *parent) : QWidget(parent)
 {
-    this->setObjectName("MemoWIdget");
+    this->setObjectName("MemoWidget");
     this->memoInfo = memoInfo;
     setWindowFlags(Qt::FramelessWindowHint | Qt::Tool);
     setAttribute(Qt::WA_DeleteOnClose);
@@ -20,7 +19,7 @@ MemoWidget::MemoWidget(MemoInfo *memoInfo, bool isEditMode, QWidget *parent) : Q
     createColorBtns();
     createContentView();
 
-    loadStyleSheet("red");
+    loadStyleSheet(COLOR_TABLE.value(this->memoInfo->getColor()));
 
     if(isEditMode)
     {
@@ -44,7 +43,6 @@ void MemoWidget::createCloseBtn()
     closeBtn->move(this->width() - BUTTON_WIDTH, 0);
     closeBtn->setIcon(QIcon(":/image/widget/close.png"));
     closeBtn->setFlat(true);
-
     connect(closeBtn, &QPushButton::clicked, this, &MemoWidget::close);
     closeBtn->hide();
 }
@@ -83,7 +81,7 @@ void MemoWidget::createPinBtn()
     pinBtn->setCursor(Qt::PointingHandCursor);
     pinBtn->setFixedSize(BUTTON_WIDTH, BUTTON_HEIGHT);
     pinBtn->move(BUTTON_WIDTH * 2, 0);
-    pinBtn->setIcon(QIcon(":/image/widget/pin.png"));
+    pinBtn->setIcon(QIcon(":/image/widget/unpin.png"));
     pinBtn->setFlat(true);
     connect(pinBtn, &QPushButton::clicked, this, &MemoWidget::onPinBtnClicked);
     pinBtn->hide();
@@ -216,7 +214,7 @@ bool MemoWidget::eventFilter(QObject *watched, QEvent *event)
 
 MemoWidget::~MemoWidget()
 {
-    // TODO
+
 }
 
 MemoInfo *MemoWidget::getMemoInfo() const
@@ -235,15 +233,9 @@ void MemoWidget::setContent(QString content)
     this->contentView->setPlainText(content);
 }
 
-Qt::GlobalColor MemoWidget::getColor() const
+int MemoWidget::getColor() const
 {
     return color;
-}
-
-void MemoWidget::setColor(Qt::GlobalColor color)
-{
-    this->color = color;
-    // TODO 颜色切换
 }
 
 void MemoWidget::save()
@@ -294,10 +286,21 @@ void MemoWidget::onEditBtnClicked()
 void MemoWidget::onPinBtnClicked()
 {
     isPinned = !isPinned;
+    if(isPinned)
+    {
+        pinBtn->setIcon(QIcon(":/image/widget/pin.png"));
+    }
+    else
+    {
+        pinBtn->setIcon(QIcon(":/image/widget/unpin.png"));
+    }
 }
 
 void MemoWidget::onColorBtnClicked()
 {
-    QString colorName = COLOR_TABLE[colorBtns2Color.value(sender())];
+    int color = colorBtns2Color.value(sender());
+    this->color = color;
+    QString colorName = COLOR_TABLE[color];
     loadStyleSheet(colorName);
+    emit memoChanged();
 }

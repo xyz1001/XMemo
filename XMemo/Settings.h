@@ -20,7 +20,6 @@ class Settings
 {
 private:
     bool autorunOnBoot; //开机自启动
-    bool autoHide; //启动时自动隐藏管理面板
 
     Settings();
 public:
@@ -38,9 +37,7 @@ public:
     }
 
     void setAutorunOnBoot(bool autorunOnBoot);
-    void setAutoHide(bool autoHide);
     bool isAutorunOnBoot() const;
-    bool isAutoHide() const;
 
     bool load();    //载入设置
     bool save();    //保存设置

@@ -6,12 +6,12 @@
 MemoInfo::MemoInfo()
 {
     this->id = QDateTime::currentMSecsSinceEpoch()/1000;
-    this->color = Qt::yellow;
+    this->color = 0;
     this->memoWidget = nullptr;
     this->visibility = true;
 }
 
-MemoInfo::MemoInfo(unsigned int id, QString content, Qt::GlobalColor color, bool visibility, QPoint pos)
+MemoInfo::MemoInfo(unsigned int id, QString content, int color, bool visibility, QPoint pos)
     :id(id), content(content), color(color), visibility(visibility), pos(pos)
 {
     this->memoWidget = nullptr;
@@ -43,12 +43,12 @@ void MemoInfo::setContent(const QString &content)
     this->content = content;
 }
 
-Qt::GlobalColor MemoInfo::getColor() const
+int MemoInfo::getColor() const
 {
     return color;
 }
 
-void MemoInfo::setColor(Qt::GlobalColor color)
+void MemoInfo::setColor(int color)
 {
     this->color = color;
 }

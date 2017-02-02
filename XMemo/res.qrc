@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>image/icon.png</file>
         <file>image/widget/delete.png</file>
         <file>image/widget/Invisible.png</file>
         <file>image/widget/Visiblet.png</file>
@@ -19,5 +18,7 @@
         <file>qss/brown.qss</file>
         <file>qss/green.qss</file>
         <file>qss/purple.qss</file>
+        <file>language/zh_CN.qm</file>
+        <file>image/xmemo.png</file>
     </qresource>
 </RCC>

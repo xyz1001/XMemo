@@ -16,17 +16,13 @@ XMemo::XMemo(QWidget *parent)
     memosTableWidget = new QTableWidget(0, 2);
     setCentralWidget(memosTableWidget);
     QStringList tableWidgetHeaders;
-    tableWidgetHeaders<<tr("s")<<tr("Memo");
+    tableWidgetHeaders<<tr("Show")<<tr("Memo");
     memosTableWidget->setHorizontalHeaderLabels(tableWidgetHeaders);
     memosTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows); //设置选择行为，以行为单位
     memosTableWidget->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
     init();
-
     createTrayIcon();
-
-    setWindowTitle("XMemo");
-    setWindowIcon(QIcon(":/image/icon.png"));
 
     memosTableWidget->setFrameShape(QFrame::NoFrame); //设置边框
     //memosTableWidget->setShowGrid(false); //设置不显示格子线
@@ -42,13 +38,24 @@ XMemo::XMemo(QWidget *parent)
     memosTableWidget->horizontalHeader()->setStretchLastSection(true); //设置充满表宽度
     memosTableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     memosTableWidget->verticalHeader()->setVisible(false); //设置垂直头不可见
-
     memosTableWidget->setAlternatingRowColors(true);
+
+    if(memosList.isEmpty())
+    {
+        this->show();
+    }
+
+    setWindowTitle("XMemo");
+    setWindowIcon(QIcon(":/image/xmemo.png"));
 }
 
 XMemo::~XMemo()
 {
-    // TODO
+    for(auto &i : memosList)
+    {
+        delete i;
+        i = nullptr;
+    }
 }
 
 void XMemo::init()
@@ -56,8 +63,6 @@ void XMemo::init()
     createManagePanel();
 
     Settings::getInstance().load();
-    if(Settings::getInstance().isAutoHide())
-        hide();
 
     DbOperator::getInstance().init();
     DbOperator::getInstance().read(memosList);
@@ -75,7 +80,7 @@ void XMemo::init()
 
 void XMemo::createManagePanel()
 {
-    quitAction = new QAction(tr("Quit"), this);
+    quitAction = new QAction(QIcon(":/image/widget/close.png"), tr("Quit"), this);
     connect(quitAction, &QAction::triggered, qApp, &QApplication::quit);
 
     newAction = new QAction(this);
@@ -100,7 +105,6 @@ void XMemo::createManagePanel()
     toolBar->addAction(deleteMemosAction);
     toolBar->addAction(hideMemosAction);
     toolBar->addAction(showMemosAction);
-    // TODO
 }
 
 void XMemo::deleteMemos(QList<int> selectedRows)
@@ -113,12 +117,15 @@ void XMemo::deleteMemos(QList<int> selectedRows)
         QObject *checkBoxObj = static_cast<QObject *>(memosTableWidget->cellWidget(i, 0));
         MemoInfo *memoInfo = visibilityCheckBoxHashMap.value(checkBoxObj);
         DbOperator::getInstance().remove(*memoInfo);
-        delete memoInfo;
 
         visibilityCheckBoxHashMap.remove(static_cast<QObject *>(memosTableWidget->cellWidget(i, 0)));
         tableWidgetItemHashMap.remove(memoInfo->getId());
         delete memosTableWidget->cellWidget(i, 0);
         memosTableWidget->removeRow(i);
+
+        delete memoInfo;
+        memosList.removeOne(memoInfo);
+        memoInfo = nullptr;
     }
 }
 
@@ -162,12 +169,11 @@ void XMemo::setMemoVisibility(MemoInfo *memoInfo, bool visibility)
 
 void XMemo::createTrayIcon()
 {
-    trayIcon = new QSystemTrayIcon(QIcon(":/image/icon.png"), this);
+    trayIcon = new QSystemTrayIcon(QIcon(":/image/xmemo.png"), this);
     trayIconMenu = new QMenu(this);
     trayIconMenu->addAction(quitAction);
 
     trayIcon->show();
-    trayIcon->setToolTip(tr("XMemo"));
     trayIcon->setContextMenu(trayIconMenu);
 
     connect(trayIcon, &QSystemTrayIcon::activated, this, &XMemo::onTrayIconClicked);

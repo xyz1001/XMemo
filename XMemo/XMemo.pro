@@ -30,3 +30,7 @@ RESOURCES += \
     res.qrc
 
 DISTFILES +=
+
+TRANSLATIONS    += zh_CN.ts
+
+RC_ICONS = icon.ico

@@ -2,7 +2,7 @@
 #include <QSqlRecord>
 #include <QSqlError>
 #include <QSqlDriver>
-#include <QDebug>
+#include <QApplication>
 
 DbOperator::DbOperator()
 {
@@ -22,7 +22,8 @@ QString DbOperator::getLastError()
 bool DbOperator::init()
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("xmemo.db");
+    QString path = qApp->applicationDirPath();
+    db.setDatabaseName(path + "/xmemo.db");
 
     if(!db.open())
     {
@@ -57,7 +58,7 @@ bool DbOperator::read(QList<MemoInfo *> &memosList)
             record=query.record();
             MemoInfo *memoInfo = new MemoInfo(record.value("id").toUInt(),
                                               record.value("content").toString(),
-                                              Qt::GlobalColor(record.value("color").toInt()),
+                                              record.value("color").toInt(),
                                               bool(record.value("visibility").toInt()),
                                               QPoint(record.value("position_x").toInt(),
                                               record.value("position_y").toInt()));
@@ -125,7 +126,7 @@ bool DbOperator::modifyColor(const MemoInfo &memoInfo)
 {
     QSqlQuery query;
     QString sql = QString("UPDATE xmemo set color = \"%1\" where id = \"%2\"")
-                  .arg(int(memoInfo.getColor()))
+                  .arg(memoInfo.getColor())
                   .arg(memoInfo.getId());
     if(query.exec(sql))
         return true;

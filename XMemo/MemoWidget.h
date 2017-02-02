@@ -58,7 +58,7 @@ private:
     QPushButton *colorBtns[COLOR_BUTTON_COUNT];
     QTextBrowser *contentView;
 
-    Qt::GlobalColor color = Qt::yellow;
+    int color = 0;
 
     QPoint relativePos;
     bool isMoving = false;
@@ -93,8 +93,7 @@ public:
     MemoInfo *getMemoInfo() const;
     QString getContent() const;
     void setContent(QString content);
-    Qt::GlobalColor getColor() const;
-    void setColor(Qt::GlobalColor color);
+    int getColor() const;
 
     void setMode(Mode mode);
 
