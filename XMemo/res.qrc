@@ -9,5 +9,15 @@
         <file>image/widget/pin.png</file>
         <file>image/widget/edit.png</file>
         <file>image/widget/close.png</file>
+        <file>qss/red.qss</file>
+        <file>image/widget/red.png</file>
+        <file>image/widget/purple.png</file>
+        <file>image/widget/green.png</file>
+        <file>image/widget/brown.png</file>
+        <file>image/widget/blue.png</file>
+        <file>qss/blue.qss</file>
+        <file>qss/brown.qss</file>
+        <file>qss/green.qss</file>
+        <file>qss/purple.qss</file>
     </qresource>
 </RCC>

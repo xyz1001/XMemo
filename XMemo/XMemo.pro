@@ -28,3 +28,5 @@ HEADERS  += XMemo.h \
 
 RESOURCES += \
     res.qrc
+
+DISTFILES +=

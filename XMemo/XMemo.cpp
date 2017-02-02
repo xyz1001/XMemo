@@ -16,7 +16,7 @@ XMemo::XMemo(QWidget *parent)
     memosTableWidget = new QTableWidget(0, 2);
     setCentralWidget(memosTableWidget);
     QStringList tableWidgetHeaders;
-    tableWidgetHeaders<<tr("show/hide")<<tr("Memo");
+    tableWidgetHeaders<<tr("s")<<tr("Memo");
     memosTableWidget->setHorizontalHeaderLabels(tableWidgetHeaders);
     memosTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows); //设置选择行为，以行为单位
     memosTableWidget->setSelectionMode(QAbstractItemView::ExtendedSelection);
@@ -37,6 +37,7 @@ XMemo::XMemo(QWidget *parent)
     QFont font = memosTableWidget->horizontalHeader()->font();
     font.setBold(true);
     memosTableWidget->horizontalHeader()->setFont(font);
+    memosTableWidget->horizontalHeader()->setDefaultAlignment(Qt::AlignCenter);
     memosTableWidget->horizontalHeader()->setSectionsClickable(false);
     memosTableWidget->horizontalHeader()->setStretchLastSection(true); //设置充满表宽度
     memosTableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);

@@ -22,17 +22,27 @@
 #include <QCloseEvent>
 #include <QMouseEvent>
 #include <QFocusEvent>
+#include <QFrame>
+#include <QHash>
 #include "MemoInfo.h"
 
 const int WIDTH = 200;
 const int HEIGHT = 300;
-const int BUTTON_WIDTH = 20;
-const int BUTTON_HEIGHT = 20;
-const int COLOR_BUTTON_COUNT = 10;
+const int BUTTON_WIDTH = 30;
+const int BUTTON_HEIGHT = 30;
+const int COLOR_BUTTON_COUNT = 5;
 
 enum Mode{EDIT, VIEW, SELECT};
 
 class MemoInfo;
+
+const QHash<int, QString> COLOR_TABLE{
+    {0, "red"},
+    {1, "purple"},
+    {2, "blue"},
+    {3, "green"},
+    {4, "brown"}
+};
 
 class MemoWidget : public QWidget
 {
@@ -44,7 +54,8 @@ private:
     QPushButton *pinBtn;
     QPushButton *editBtn;
     QPlainTextEdit *contentEditor;
-    QPushButton *colorBtn[COLOR_BUTTON_COUNT];
+    QFrame *colorBtnsFame;
+    QPushButton *colorBtns[COLOR_BUTTON_COUNT];
     QTextBrowser *contentView;
 
     Qt::GlobalColor color = Qt::yellow;
@@ -52,8 +63,17 @@ private:
     QPoint relativePos;
     bool isMoving = false;
     bool isPinned = false;
+    QHash<QObject *, int> colorBtns2Color;
 
-    void closeEvent(QCloseEvent *e);
+    void createCloseBtn();
+    void createNewBtn();
+    void createPinBtn();
+    void createEditBtn();
+    void createContentEditor();
+    void createColorBtns();
+    void createContentView();
+
+    void closeEvent(QCloseEvent *);
     void mouseMoveEvent(QMouseEvent *e);
     void mousePressEvent(QMouseEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
@@ -63,6 +83,8 @@ private:
     void setTopBtnVisibility(bool visibility);
     void setEditWidgetVisibility(bool visibility);
     void save();
+
+    void loadStyleSheet(const QString colorName);
 
 public:
     explicit MemoWidget(MemoInfo *memoInfo, bool isEditMode, QWidget *parent = 0);

@@ -1,0 +1,40 @@
+QWidget#MemoWIdget, #contentView {
+    background-color: #AB47BC;
+}
+
+QPushButton {
+    border-radius: 15px;
+    width: 30px;
+    height: 30px;
+    padding: 0px;
+    margin: 5px;
+}
+
+QPushButton#closeBtn:hover, #newBtn:hover, #pinBtn:hover, #editBtn:hover {
+    background-color: #FEF4BF;
+    border-radius: 15px;
+    width: 30px;
+    height: 30px;
+    padding: 0px;
+    margin: 0px;
+}
+
+QFrame {
+    border-radius: 15px;
+    background-color: #E1BEE7;
+}
+
+QPushButton#colorBtns {
+    border: 1px solid #E3C46F;
+    border-radius: 15px;
+    width: 30px;
+    height: 30px;
+    padding: 0px;
+    margin: 0px;
+}
+
+QPlainTextEdit {
+    background-color: #E1BEE7;
+    border-radius: 10px;
+    border: 1px solid #E3C46F;
+}
