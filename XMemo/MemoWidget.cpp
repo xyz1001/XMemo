@@ -38,7 +38,7 @@ void MemoWidget::createCloseBtn()
 {
     closeBtn = new QPushButton(this);
     closeBtn->setCursor(Qt::PointingHandCursor);
-    closeBtn->setObjectName("closeBtn");
+    closeBtn->setObjectName("closeBtn");    //在qss中指定部件时起作用
     closeBtn->setFixedSize(BUTTON_WIDTH, BUTTON_HEIGHT);
     closeBtn->move(this->width() - BUTTON_WIDTH, 0);
     closeBtn->setIcon(QIcon(":/image/widget/close.png"));
@@ -296,6 +296,9 @@ void MemoWidget::onPinBtnClicked()
     }
 }
 
+/**
+ * @brief MemoWidget::onColorBtnClicked 换肤
+ */
 void MemoWidget::onColorBtnClicked()
 {
     int color = colorBtns2Color.value(sender());

@@ -30,7 +30,7 @@ private:
     int color;  //便签颜色
     MemoWidget *memoWidget = nullptr; //便签对应窗体
     bool visibility;    //是否在桌面显示
-    QPoint pos = QPoint(0, 0);
+    QPoint pos = QPoint(0, 0);  //桌面位置
 public:
     MemoInfo();
     MemoInfo(unsigned int id, QString content, int color, bool visibility, QPoint pos);

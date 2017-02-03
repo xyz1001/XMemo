@@ -36,6 +36,7 @@ enum Mode{EDIT, VIEW, SELECT};
 
 class MemoInfo;
 
+//颜色字符串表，便于通过颜色数值找到该颜色的字符串并进一步对应qss文件
 const QHash<int, QString> COLOR_TABLE{
     {0, "red"},
     {1, "purple"},
@@ -54,12 +55,11 @@ private:
     QPushButton *pinBtn;
     QPushButton *editBtn;
     QPlainTextEdit *contentEditor;
-    QFrame *colorBtnsFame;
+    QFrame *colorBtnsFame;  //颜色切换按钮的底部背景
     QPushButton *colorBtns[COLOR_BUTTON_COUNT];
     QTextBrowser *contentView;
 
     int color = 0;
-
     QPoint relativePos;
     bool isMoving = false;
     bool isPinned = false;
@@ -80,9 +80,9 @@ private:
 
     bool eventFilter(QObject *watched, QEvent *event);
 
-    void setTopBtnVisibility(bool visibility);
-    void setEditWidgetVisibility(bool visibility);
-    void save();
+    void setTopBtnVisibility(bool visibility);  //设置顶部按钮的显示状态
+    void setEditWidgetVisibility(bool visibility);  //设置编辑部件的显示状态
+    void save();    //保存修改
 
     void loadStyleSheet(const QString colorName);
 
@@ -95,7 +95,7 @@ public:
     void setContent(QString content);
     int getColor() const;
 
-    void setMode(Mode mode);
+    void setMode(Mode mode);    //切换便签显示模式， VIEW：窗口未激活时的便签查看模式；SELECT：窗口激活但未进入编辑状态模式；EDIT：编辑模式
 
 signals:
     void createMemo();
