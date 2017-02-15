@@ -2,7 +2,8 @@
 #include <QSqlRecord>
 #include <QSqlError>
 #include <QSqlDriver>
-#include <QApplication>
+#include <QDir>
+#include "Settings.h"
 
 DbOperator::DbOperator()
 {
@@ -25,8 +26,7 @@ bool DbOperator::init()
      * @brief db 必须是局部变量，不能是全局或成员变量，否则析构时会崩溃(待解决)
      */
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    QString path = qApp->applicationDirPath();
-    db.setDatabaseName(path + "/xmemo.db");
+    db.setDatabaseName(Settings::getInstance().getConfigPath() + ".xmemo.db");
 
     if(!db.open())
     {

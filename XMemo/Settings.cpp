@@ -1,11 +1,13 @@
 #include "Settings.h"
 #include <QSettings>
 #include <QFile>
-#include <QApplication>
+#include <QDir>
 
 Settings::Settings()
 {
     autorunOnBoot = false;
+    configPath = QDir::homePath()+"/.XMemo/";
+    QDir().mkdir(configPath);
 }
 
 Settings::~Settings()
@@ -23,10 +25,19 @@ bool Settings::isAutorunOnBoot() const
     return autorunOnBoot;
 }
 
+void Settings::setConfigPath(QString configPath)
+{
+    this->configPath = configPath;
+}
+
+QString Settings::getConfigPath() const
+{
+    return this->configPath;
+}
+
 bool Settings::load()
 {
-    QString path = qApp->applicationDirPath();
-    QSettings settings(path + "/.xmemo.cfg", QSettings::IniFormat);
+    QSettings settings(configPath + "/.xmemo.cfg", QSettings::IniFormat);
     if(settings.contains("exists"))
     {
         autorunOnBoot = settings.value("autorunOnBoot").toBool();
@@ -38,8 +49,7 @@ bool Settings::load()
 
 bool Settings::save()
 {
-    QString path = qApp->applicationDirPath();
-    QSettings settings(path + "/.xmemo.cfg", QSettings::IniFormat);
+    QSettings settings(configPath + "/.xmemo.cfg", QSettings::IniFormat);
 
     if(settings.isWritable())
     {

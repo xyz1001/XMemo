@@ -15,11 +15,13 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
+#include <QString>
 
 class Settings
 {
 private:
     bool autorunOnBoot; //开机自启动
+    QString configPath;
 
     Settings();
 public:
@@ -38,6 +40,8 @@ public:
 
     void setAutorunOnBoot(bool autorunOnBoot);
     bool isAutorunOnBoot() const;
+    void setConfigPath(QString configPath);
+    QString getConfigPath() const;
 
     bool load();    //载入设置
     bool save();    //保存设置

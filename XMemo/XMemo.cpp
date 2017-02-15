@@ -173,6 +173,9 @@ void XMemo::createAction()
     newAction->setIcon(QIcon(":/image/widget/new.png"));
     connect(newAction, &QAction::triggered, this, &XMemo::onNewMemoTriggered);
 
+    TrayNewAction = new QAction(QIcon(":/image/widget/new.png"), tr("New"), this);
+    connect(TrayNewAction, &QAction::triggered, this, &XMemo::onNewMemoTriggered);
+
     deleteMemosAction = new QAction(this);
     deleteMemosAction->setIcon(QIcon(":/image/widget/delete.png"));
     connect(deleteMemosAction, &QAction::triggered, this, &XMemo::onDeleteMemosTriggered);
@@ -197,6 +200,7 @@ void XMemo::createTrayIcon()
 {
     trayIcon = new QSystemTrayIcon(QIcon(":/image/xmemo.png"), this);
     trayIconMenu = new QMenu(this);
+    trayIconMenu->addAction(TrayNewAction);
     trayIconMenu->addAction(quitAction);
 
     trayIcon->show();

@@ -45,6 +45,7 @@ private:
     QMenu *trayIconMenu;
     QTableWidget *memosTableWidget;   //管理便签的表格
     QAction *newAction;
+    QAction *TrayNewAction;
     QAction *quitAction;
     QAction *deleteMemosAction;
     QAction *hideMemosAction;

@@ -14,19 +14,19 @@
         <translation>便签</translation>
     </message>
     <message>
-        <location filename="XMemo.cpp" line="84"/>
+        <location filename="XMemo.cpp" line="169"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="XMemo.cpp" line="103"/>
-        <source>&amp;Tools</source>
-        <translation>工具(&amp;T)</translation>
+        <location filename="XMemo.cpp" line="176"/>
+        <source>New</source>
+        <translation>新建</translation>
     </message>
     <message>
-        <location filename="XMemo.cpp" line="178"/>
-        <source>XMemo</source>
-        <translation></translation>
+        <location filename="XMemo.cpp" line="191"/>
+        <source>&amp;Tools</source>
+        <translation>工具(&amp;T)</translation>
     </message>
 </context>
 </TS>
