@@ -54,6 +54,7 @@ private:
     QPushButton *newBtn;
     QPushButton *pinBtn;
     QPushButton *editBtn;
+    QPushButton *stayOnTopBtn;
     QPlainTextEdit *contentEditor;
     QFrame *colorBtnsFame;  //颜色切换按钮的底部背景
     QPushButton *colorBtns[COLOR_BUTTON_COUNT];
@@ -63,12 +64,14 @@ private:
     QPoint relativePos;
     bool isMoving = false;
     bool isPinned = false;
+    bool isStayOnTop = false;
     QHash<QObject *, int> colorBtns2Color;
 
     void createCloseBtn();
     void createNewBtn();
-    void createPinBtn();
     void createEditBtn();
+    void createPinBtn();
+    void createStayOnTopBtn();
     void createContentEditor();
     void createColorBtns();
     void createContentView();
@@ -106,6 +109,7 @@ private slots:
     void onNewBtnClicked();
     void onEditBtnClicked();
     void onPinBtnClicked();
+    void onStayOnTopBtnClicked();
     void onColorBtnClicked();
 };
 

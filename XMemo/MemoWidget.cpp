@@ -15,6 +15,7 @@ MemoWidget::MemoWidget(MemoInfo *memoInfo, bool isEditMode, QWidget *parent) : Q
     createNewBtn();
     createEditBtn();
     createPinBtn();
+    createStayOnTopBtn();
     createContentEditor();
     createColorBtns();
     createContentView();
@@ -85,6 +86,19 @@ void MemoWidget::createPinBtn()
     pinBtn->setFlat(true);
     connect(pinBtn, &QPushButton::clicked, this, &MemoWidget::onPinBtnClicked);
     pinBtn->hide();
+}
+
+void MemoWidget::createStayOnTopBtn()
+{
+    stayOnTopBtn = new QPushButton(this);
+    stayOnTopBtn->setObjectName("stayOnTop");
+    stayOnTopBtn->setCursor(Qt::PointingHandCursor);
+    stayOnTopBtn->setFixedSize(BUTTON_WIDTH, BUTTON_HEIGHT);
+    stayOnTopBtn->move(BUTTON_WIDTH * 3, 0);
+    stayOnTopBtn->setFlat(true);
+    stayOnTopBtn->setIcon(QIcon(":/image/widget/stayOnTop.png"));
+    connect(stayOnTopBtn, &QPushButton::clicked, this, &MemoWidget::onStayOnTopBtnClicked);
+    stayOnTopBtn->hide();
 }
 
 void MemoWidget::createContentEditor()
@@ -168,6 +182,7 @@ void MemoWidget::setTopBtnVisibility(bool visibility)
     newBtn->setVisible(visibility);
     editBtn->setVisible(visibility);
     pinBtn->setVisible(visibility);
+    stayOnTopBtn->setVisible(visibility);
 }
 
 void MemoWidget::setEditWidgetVisibility(bool visibility)
@@ -298,6 +313,22 @@ void MemoWidget::onPinBtnClicked()
     {
         pinBtn->setIcon(QIcon(":/image/widget/unpin.png"));
     }
+}
+
+void MemoWidget::onStayOnTopBtnClicked()
+{
+    if (isStayOnTop)
+    {
+        setWindowFlags(windowFlags() & ~Qt::WindowStaysOnTopHint & ~Qt::X11BypassWindowManagerHint);
+        isStayOnTop = false;
+    }
+    else
+    {
+        setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
+        isStayOnTop = true;
+    }
+
+    show();
 }
 
 /**

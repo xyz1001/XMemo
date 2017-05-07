@@ -21,5 +21,6 @@
         <file>language/zh_CN.qm</file>
         <file>image/xmemo.png</file>
         <file>image/xmemo.ico</file>
+        <file>image/widget/stayOnTop.png</file>
     </qresource>
 </RCC>
