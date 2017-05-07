@@ -6,8 +6,11 @@
 Settings::Settings()
 {
     autorunOnBoot = false;
-    configPath = QDir::homePath()+"/.XMemo/";
-    QDir().mkdir(configPath);
+    configPath = QDir::homePath()+"/.config/xmemo/";
+    if (!QDir(configPath).exists())
+    {
+        QDir().mkdir(configPath);
+    }
 }
 
 Settings::~Settings()
@@ -37,7 +40,7 @@ QString Settings::getConfigPath() const
 
 bool Settings::load()
 {
-    QSettings settings(configPath + "/.xmemo.cfg", QSettings::IniFormat);
+    QSettings settings(configPath + "/xmemo.cfg", QSettings::IniFormat);
     if(settings.contains("exists"))
     {
         autorunOnBoot = settings.value("autorunOnBoot").toBool();
@@ -49,7 +52,7 @@ bool Settings::load()
 
 bool Settings::save()
 {
-    QSettings settings(configPath + "/.xmemo.cfg", QSettings::IniFormat);
+    QSettings settings(configPath + "/xmemo.cfg", QSettings::IniFormat);
 
     if(settings.isWritable())
     {

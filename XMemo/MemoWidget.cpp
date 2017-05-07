@@ -193,7 +193,11 @@ bool MemoWidget::eventFilter(QObject *watched, QEvent *event)
 {
     if(watched == this)
     {
-        if(event->type() == QEvent::WindowActivate)
+        if (event->type() == QEvent::MouseButtonDblClick)
+        {
+            this->onEditBtnClicked();
+        }
+        else if(event->type() == QEvent::WindowActivate)
         {
             if(memoInfo->getContent().isEmpty())
                 setMode(EDIT);
