@@ -47,7 +47,7 @@ XMemo::XMemo(QWidget *parent)
     }
 
     setWindowTitle("XMemo");
-    setWindowIcon(QIcon(":/image/xmemo.ico"));
+    setWindowIcon(QIcon(":/image/xmemo.png"));
 }
 
 XMemo::~XMemo()

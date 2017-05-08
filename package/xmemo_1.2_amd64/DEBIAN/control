@@ -1,0 +1,9 @@
+Package: xmemo
+Version: 1.2
+Architecture: amd64
+Maintainer: Zix<875916780@qq.com>
+Installed-Size: 359
+Depends: libc6 (>= 2.14), libgcc1 (>= 1:4.1.1), libqt5widgets5 (>=5.0), libqt5gui5 (>=5.0), libqt5network5 (>= 5.0), libqt5xml5 (>= 5.0), libqt5core5a (>= 5.0), libstdc++6 (>= 4.1.1), libx11-6, libxext6, libxfixes3
+Section: utils
+Priority: optional
+Description: A desktop xmemo run on linux.

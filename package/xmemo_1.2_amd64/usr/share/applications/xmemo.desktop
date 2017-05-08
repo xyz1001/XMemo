@@ -1,0 +1,12 @@
+[Desktop Entry]
+Categories=Office;
+Comment=A linux desktop memo
+Comment[zh_CN]=一个linux下的桌面便签程序
+Exec=/usr/bin/xmemo
+GenericName=xmemo
+Icon=xmemo
+Keywords[zh_CN]=xmemo;便签;桌面;
+Name=xmemo
+Name[zh_CN]=xmemo
+Terminal=false
+Type=Application
