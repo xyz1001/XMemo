@@ -56,6 +56,7 @@ private:
     void createMemoWidget(MemoInfo *memoInfo, bool isEditMode);
     void closeEvent(QCloseEvent *e);
     QList<int> getSelectedRows();
+    void raiseMemos();
 
 public:
     XMemo(QWidget *parent = 0);

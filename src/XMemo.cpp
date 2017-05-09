@@ -246,16 +246,27 @@ void XMemo::onTrayIconClicked(QSystemTrayIcon::ActivationReason reason)
     //托盘点击方式
     switch(reason)
     {
-        //单击
-        case QSystemTrayIcon::Trigger:
-            //双击
-        case QSystemTrayIcon::DoubleClick:
-            //恢复窗口显示
-            this->setWindowState(Qt::WindowActive);
-            this->show();
-            break;
-        default:
-            break;
+    case QSystemTrayIcon::DoubleClick: //双击
+        this->setWindowState(Qt::WindowActive);
+        this->show();
+        break;
+    case QSystemTrayIcon::Trigger: //单击
+        //恢复便签显示
+        raiseMemos();
+        break;
+    default:
+        break;
+    }
+}
+
+void XMemo::raiseMemos()
+{
+    for (auto &i : memosList)
+    {
+        if (i->getMemoWidget() && i->getMemoWidget()->isVisible())
+        {
+            i->getMemoWidget()->raise();
+        }
     }
 }
 

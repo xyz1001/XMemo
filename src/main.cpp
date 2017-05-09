@@ -27,6 +27,20 @@
  *            3. 便签查找
  *            4. 全局快捷键
  *            5. 便签置顶
+ *
+ * Version：1.2
+ * Copyright：Zix
+ * Author：Zix
+ * Date：2017/05/08
+ * Description: 1. 添加便签置顶功能
+ * TODO list: 1. 双击托盘临时置顶所有便签
+ *            2. 支持markdown语法
+ *
+ * Version：1.2.1
+ * Copyright：Zix
+ * Author：Zix
+ * Date：2017/05/09
+ * Description: 1. 添加单击托盘置顶所有可见便签功能
  ********************************************************************************************************************/
 #include "XMemo.h"
 #include <QApplication>
