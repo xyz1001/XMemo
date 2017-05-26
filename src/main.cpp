@@ -41,6 +41,12 @@
  * Author：Zix
  * Date：2017/05/09
  * Description: 1. 添加单击托盘置顶所有可见便签功能
+ *
+ * Version：1.2.2
+ * Copyright：Zix
+ * Author：Zix
+ * Date：2017/05/26
+ * Description: 1. 修复重启后部分操作导致的颜色被重置的BUG
  ********************************************************************************************************************/
 #include "XMemo.h"
 #include <QApplication>

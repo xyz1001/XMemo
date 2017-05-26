@@ -5,6 +5,7 @@ MemoWidget::MemoWidget(MemoInfo *memoInfo, bool isEditMode, QWidget *parent) : Q
 {
     this->setObjectName("MemoWidget");
     this->memoInfo = memoInfo;
+    this->color = memoInfo->getColor();
     setWindowFlags(Qt::FramelessWindowHint | Qt::Tool);
     setAttribute(Qt::WA_DeleteOnClose);
     setFixedSize(WIDTH, HEIGHT);
@@ -151,7 +152,6 @@ void MemoWidget::closeEvent(QCloseEvent *)
 
 void MemoWidget::mouseMoveEvent(QMouseEvent *e)
 {
-    QPoint p(e->globalPos() - relativePos);
     if (!isPinned && e->buttons() & Qt::LeftButton && isMoving)
     {
         move(e->globalPos() - relativePos);
