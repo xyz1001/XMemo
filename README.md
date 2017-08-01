@@ -14,7 +14,7 @@ Linux下的一款桌面便签小工具，基于Qt5开发
  ```
  sudo apt install libqt5widgets5 libqt5gui5 libqt5network5 libqt5xml5 libqt5core5a
  ```
- 3. 下载本程序源代码病解压进入
+ 3. 下载本程序源代码并解压进入
  4. 编译
  ```
  mkdir build && cd build && qmake .. && make
