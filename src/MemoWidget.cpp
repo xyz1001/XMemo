@@ -1,5 +1,17 @@
 #include "MemoWidget.h"
 #include <QFile>
+#include "contribute/markdown.h"
+#include <sstream>
+#include <QDebug>
+
+QString MarkdownToHtml(const QString &md) {
+    markdown::Document doc;
+    doc.read(md.toStdString());
+    std::ostringstream out;
+    doc.write(out);
+    qDebug() << QString::fromStdString(out.str());
+    return QString::fromStdString(out.str());
+}
 
 MemoWidget::MemoWidget(MemoInfo *memoInfo, bool isEditMode, QWidget *parent) : QWidget(parent)
 {
@@ -141,7 +153,8 @@ void MemoWidget::createContentView()
     contentView->move(0, BUTTON_HEIGHT);
     contentView->setFrameStyle(QFrame::NoFrame);
     contentView->setAttribute(Qt::WA_TransparentForMouseEvents);
-    contentView->setPlainText(this->memoInfo->getContent());
+    contentView->setAcceptRichText(true);
+    contentView->setText(MarkdownToHtml(this->memoInfo->getContent()));
     contentView->hide();
 }
 
@@ -259,7 +272,7 @@ int MemoWidget::getColor() const
 
 void MemoWidget::save()
 {
-    contentView->setPlainText(contentEditor->toPlainText());
+    contentView->setText(MarkdownToHtml(contentEditor->toPlainText()));
     emit memoChanged();
 }
 

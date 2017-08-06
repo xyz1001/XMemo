@@ -18,15 +18,21 @@ SOURCES += main.cpp\
     Settings.cpp \
     DbOperator.cpp \
     MemoInfo.cpp \
-    MemoWidget.cpp
+    MemoWidget.cpp \
+    ./contribute/markdown.cpp \
+    ./contribute/markdown-tokens.cpp
 
 HEADERS  += XMemo.h \
     Settings.h \
     DbOperator.h \
     MemoInfo.h \
-    MemoWidget.h
+    MemoWidget.h \
+    ./contribute/markdown.h \
+    ./contribute/markdown-tokens.h
 
 RESOURCES += \
     res.qrc
 
 TRANSLATIONS    += zh_CN.ts
+
+LIBS += -lboost_regex
