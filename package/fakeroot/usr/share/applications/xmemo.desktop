@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Exec=/usr/local/bin/xmemo
+Name=XMemo
+Comment=A desktop xmemo run on linux.
+Icon=xmemo
+Terminal=false
+Categories=Utility

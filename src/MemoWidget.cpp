@@ -9,7 +9,6 @@ QString MarkdownToHtml(const QString &md) {
     doc.read(md.toStdString());
     std::ostringstream out;
     doc.write(out);
-    qDebug() << QString::fromStdString(out.str());
     return QString::fromStdString(out.str());
 }
 

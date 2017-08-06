@@ -1,0 +1,10 @@
+Package: xmemo
+Version: 1.3
+Architecture: amd64
+Maintainer: Zix<zgzf1001@gmail.com>
+Installed-Size: 660
+Depends: libxcb-present0, libglapi-mesa, libqt5widgets5, zlib1g, libbsd0, libx11-6, libxcb-dri2-0, libpcre3, libdrm2, libstdc++6, libxcb-glx0, libxxf86vm1, libc6, libxcb-sync1, libxext6, libffi6, libicu57, libgraphite2-3, libpcre16-3, libglib2.0-0, libqt5core5a, libqt5sql5, libgcc1, libexpat1, libxcb-dri3-0, libfreetype6, libxfixes3, libxdmcp6, libxau6, libboost-regex1.62.0, libqt5gui5, libxshmfence1, libxdamage1, libgl1-mesa-glx, libxcb1, libpng16-16, libx11-xcb1, libharfbuzz0b
+Section: utils
+Priority: optional
+\Homepages: https://github.com/xyz1001/XMemo
+Description: A desktop xmemo run on linux.
