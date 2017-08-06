@@ -1,6 +1,5 @@
 #include "XMemo.h"
 #include <QApplication>
-#include <QCheckBox>
 #include <QStringList>
 #include <QtAlgorithms>
 #include <QToolBar>
@@ -12,7 +11,7 @@
 
 XMemo::XMemo(QWidget *parent)
     : QMainWindow(parent)
-{    
+{
     memosTableWidget = new QTableWidget(0, 2);
     setCentralWidget(memosTableWidget);
     QStringList tableWidgetHeaders;
@@ -86,11 +85,13 @@ void XMemo::init()
  */
 void XMemo::addMemo(MemoInfo *memoInfo)
 {
+    //通过layout使widget居中
     int count = memosTableWidget->rowCount();
     memosTableWidget->insertRow(count);
-    QCheckBox *visibilityCheckBox = new QCheckBox;
+    xwidget::xswitch::XSwitch *visibilityCheckBox = 
+        new xwidget::xswitch::XSwitch(xwidget::xswitch::SimpleSwitchOption());
     visibilityCheckBox->resize(BUTTON_WIDTH, BUTTON_HEIGHT);
-    connect(visibilityCheckBox, &QCheckBox::clicked, this, &XMemo::onVisibilityCheckBoxClicked);
+    connect(visibilityCheckBox, &xwidget::xswitch::XSwitch::clicked, this, &XMemo::onVisibilityCheckBoxClicked);
     QString shownContent = memoInfo->getContent().length()>30?memoInfo->getContent().left(30)+"...":memoInfo->getContent();
     QTableWidgetItem *contentTableWidgetItem = new QTableWidgetItem(shownContent);
     memosTableWidget->setItem(count, 1, contentTableWidgetItem);
@@ -141,7 +142,7 @@ void XMemo::setMemosVisibility(QList<int> selectedRows, bool visibility)
 {
     for(const auto i : selectedRows)
     {
-        static_cast<QCheckBox *>(memosTableWidget->cellWidget(i, 0))->setChecked(visibility);
+        static_cast<xwidget::xswitch::XSwitch *>(memosTableWidget->cellWidget(i, 0))->setChecked(visibility);
         QObject *checkBoxObj = static_cast<QObject *>(memosTableWidget->cellWidget(i, 0));
         MemoInfo *memoInfo = visibilityCheckBoxHashMap.value(checkBoxObj);
         setMemoVisibility(memoInfo, visibility);

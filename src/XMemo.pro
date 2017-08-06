@@ -19,16 +19,18 @@ SOURCES += main.cpp\
     DbOperator.cpp \
     MemoInfo.cpp \
     MemoWidget.cpp \
-    ./contribute/markdown.cpp \
-    ./contribute/markdown-tokens.cpp
+    ./contribute/cpp-markdown/markdown.cpp \
+    ./contribute/cpp-markdown/markdown-tokens.cpp \
+    ./contribute/xswitch/xswitch.cpp
 
 HEADERS  += XMemo.h \
     Settings.h \
     DbOperator.h \
     MemoInfo.h \
     MemoWidget.h \
-    ./contribute/markdown.h \
-    ./contribute/markdown-tokens.h
+    ./contribute/cpp-markdown/markdown.h \
+    ./contribute/cpp-markdown/markdown-tokens.h \
+    ./contribute/xswitch/xswitch.h
 
 RESOURCES += \
     res.qrc

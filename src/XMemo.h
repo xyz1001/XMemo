@@ -26,11 +26,14 @@
 #include <QTableWidgetItem>
 #include <QCheckBox>
 #include "MemoInfo.h"
+#include "contribute/xswitch/xswitch.h"
+
+using XSwitch = xwidget::xswitch::XSwitch;
 
 struct TableWidgetItemInfo
 {
     QTableWidgetItem *tableWidgetItem;
-    QCheckBox *checkBox;
+    XSwitch *checkBox;
 };
 
 class XMemo : public QMainWindow
