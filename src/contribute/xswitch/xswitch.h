@@ -49,6 +49,7 @@ private:
 
     void SetOffset(int offset);
     int GetOffset() const;
+    void Animation();
     QPropertyAnimation *animation_ = nullptr;
 };
 

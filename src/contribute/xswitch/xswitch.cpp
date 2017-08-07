@@ -46,6 +46,9 @@ XSwitch::XSwitch(const XSwitchOption &option, QWidget *parent)
 {
     setCheckable(true);
     animation_->setDuration(pimpl_->animation_duration_);
+    connect(this, &XSwitch::toggled, this, [=](bool ){
+            Animation();
+            });
 }
 
 XSwitch::~XSwitch() = default;
@@ -71,18 +74,26 @@ void XSwitch::paintEvent(QPaintEvent */*e*/) {
     } else {
         box_brush = pimpl_->option_.disable_box_brush;
         slider_brush = pimpl_->option_.disable_slider_brush;
-        pimpl_->slider_offset_ = 0;
+        pimpl_->slider_offset_ = isChecked() ?
+            pimpl_->slide_end_ : pimpl_->slide_start_;
     }
     painter.setBrush(box_brush);
     painter.drawRoundedRect(pimpl_->box_rect_, pimpl_->option_.box_height/2, pimpl_->option_.box_height/2);
     painter.setBrush(slider_brush);
-    painter.drawEllipse(QRectF(pimpl_->slider_rect_.x() + pimpl_->slider_offset_, pimpl_->slider_rect_.y(),
-                               pimpl_->slider_rect_.width(), pimpl_->slider_rect_.height()));
+    painter.drawEllipse(QRectF(pimpl_->slider_rect_.x() + pimpl_->slider_offset_,
+                               pimpl_->slider_rect_.y(),
+                               pimpl_->slider_rect_.width(),
+                               pimpl_->slider_rect_.height()));
 }
 
 void XSwitch::mouseReleaseEvent(QMouseEvent *e) {
     if (e->button() & Qt::LeftButton) {
         QAbstractButton::mouseReleaseEvent(e);
+    }
+
+}
+
+void XSwitch::Animation() {
         animation_->stop();
         animation_->setStartValue(GetOffset());
 
@@ -93,8 +104,6 @@ void XSwitch::mouseReleaseEvent(QMouseEvent *e) {
         }
 
         animation_->start();
-    }
-
 }
 
 void XSwitch::enterEvent(QEvent *e) {
