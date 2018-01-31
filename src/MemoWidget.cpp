@@ -1,10 +1,11 @@
 #include "MemoWidget.h"
-#include <QFile>
-#include "contribute/markdown.h"
-#include <sstream>
+#include "contribute/cpp-markdown/markdown.h"
 #include <QDebug>
+#include <QFile>
+#include <sstream>
 
-QString MarkdownToHtml(const QString &md) {
+QString MarkdownToHtml(const QString& md)
+{
     markdown::Document doc;
     doc.read(md.toStdString());
     std::ostringstream out;
@@ -12,7 +13,8 @@ QString MarkdownToHtml(const QString &md) {
     return QString::fromStdString(out.str());
 }
 
-MemoWidget::MemoWidget(MemoInfo *memoInfo, bool isEditMode, QWidget *parent) : QWidget(parent)
+MemoWidget::MemoWidget(MemoInfo* memoInfo, bool isEditMode, QWidget* parent)
+    : QWidget(parent)
 {
     this->setObjectName("MemoWidget");
     this->memoInfo = memoInfo;
@@ -21,7 +23,6 @@ MemoWidget::MemoWidget(MemoInfo *memoInfo, bool isEditMode, QWidget *parent) : Q
     setAttribute(Qt::WA_DeleteOnClose);
     setFixedSize(WIDTH, HEIGHT);
     this->installEventFilter(this);
-
 
     createCloseBtn();
     createNewBtn();
@@ -34,12 +35,9 @@ MemoWidget::MemoWidget(MemoInfo *memoInfo, bool isEditMode, QWidget *parent) : Q
 
     loadStyleSheet(COLOR_TABLE.value(this->memoInfo->getColor()));
 
-    if(isEditMode)
-    {
+    if (isEditMode) {
         setMode(EDIT);
-    }
-    else
-    {
+    } else {
         setMode(VIEW);
     }
 
@@ -51,7 +49,7 @@ void MemoWidget::createCloseBtn()
 {
     closeBtn = new QPushButton(this);
     closeBtn->setCursor(Qt::PointingHandCursor);
-    closeBtn->setObjectName("closeBtn");    //在qss中指定部件时起作用
+    closeBtn->setObjectName("closeBtn"); //在qss中指定部件时起作用
     closeBtn->setFixedSize(BUTTON_WIDTH, BUTTON_HEIGHT);
     closeBtn->move(this->width() - BUTTON_WIDTH, 0);
     closeBtn->setIcon(QIcon(":/image/widget/close.png"));
@@ -129,8 +127,7 @@ void MemoWidget::createColorBtns()
     colorBtnsFame = new QFrame(this);
     colorBtnsFame->setFixedSize(WIDTH - 10, BUTTON_HEIGHT);
     colorBtnsFame->move(5, this->height() - int(BUTTON_HEIGHT * 1.5));
-    for(int i=0; i<COLOR_BUTTON_COUNT; ++i)
-    {
+    for (int i = 0; i < COLOR_BUTTON_COUNT; ++i) {
         colorBtns[i] = new QPushButton(colorBtnsFame);
         colorBtns[i]->setObjectName("colorBtns");
         colorBtns[i]->setFixedSize(BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -138,7 +135,7 @@ void MemoWidget::createColorBtns()
 
         colorBtns[i]->setIcon(QIcon(QString(":/image/widget/%1.png").arg(COLOR_TABLE[i])));
         colorBtns[i]->setIconSize(QSize(30, 30));
-        colorBtns2Color.insert(static_cast<QObject *>(colorBtns[i]), i);
+        colorBtns2Color.insert(static_cast<QObject*>(colorBtns[i]), i);
         connect(colorBtns[i], &QPushButton::clicked, this, &MemoWidget::onColorBtnClicked);
         colorBtns[i]->hide();
     }
@@ -157,32 +154,29 @@ void MemoWidget::createContentView()
     contentView->hide();
 }
 
-void MemoWidget::closeEvent(QCloseEvent *)
+void MemoWidget::closeEvent(QCloseEvent*)
 {
     emit closeMemo(this->memoInfo);
 }
 
-void MemoWidget::mouseMoveEvent(QMouseEvent *e)
+void MemoWidget::mouseMoveEvent(QMouseEvent* e)
 {
-    if (!isPinned && e->buttons() & Qt::LeftButton && isMoving)
-    {
+    if (!isPinned && e->buttons() & Qt::LeftButton && isMoving) {
         move(e->globalPos() - relativePos);
     }
 }
 
-void MemoWidget::mousePressEvent(QMouseEvent *e)
+void MemoWidget::mousePressEvent(QMouseEvent* e)
 {
-    if(e->button() == Qt::LeftButton)
-    {
+    if (e->button() == Qt::LeftButton) {
         relativePos = e->globalPos() - pos();
         isMoving = true;
     }
 }
 
-void MemoWidget::mouseReleaseEvent(QMouseEvent *e)
+void MemoWidget::mouseReleaseEvent(QMouseEvent* e)
 {
-    if(e->button() == Qt::LeftButton)
-    {
+    if (e->button() == Qt::LeftButton) {
         isMoving = false;
         emit memoMoved(this->pos());
     }
@@ -200,12 +194,10 @@ void MemoWidget::setTopBtnVisibility(bool visibility)
 void MemoWidget::setEditWidgetVisibility(bool visibility)
 {
     contentEditor->setVisible(visibility);
-    for(auto &i : colorBtns)
-    {
+    for (auto& i : colorBtns) {
         i->setVisible(visibility);
     }
-    if(visibility)
-    {
+    if (visibility) {
         //切换激活窗口并置顶之，windows下可能无效
         this->show();
         this->activateWindow();
@@ -216,24 +208,18 @@ void MemoWidget::setEditWidgetVisibility(bool visibility)
     contentView->setVisible(!visibility);
 }
 
-bool MemoWidget::eventFilter(QObject *watched, QEvent *event)
+bool MemoWidget::eventFilter(QObject* watched, QEvent* event)
 {
-    if(watched == this)
-    {
-        if (event->type() == QEvent::MouseButtonDblClick)
-        {
+    if (watched == this) {
+        if (event->type() == QEvent::MouseButtonDblClick) {
             this->onEditBtnClicked();
-        }
-        else if(event->type() == QEvent::WindowActivate)
-        {
-            if(memoInfo->getContent().isEmpty())
+        } else if (event->type() == QEvent::WindowActivate) {
+            if (memoInfo->getContent().isEmpty())
                 setMode(EDIT);
             else
                 setMode(SELECT);
             return true;
-        }
-        else if(event->type() == QEvent::WindowDeactivate)
-        {
+        } else if (event->type() == QEvent::WindowDeactivate) {
             save();
             setMode(VIEW);
             return true;
@@ -242,13 +228,11 @@ bool MemoWidget::eventFilter(QObject *watched, QEvent *event)
     return false;
 }
 
-
 MemoWidget::~MemoWidget()
 {
-
 }
 
-MemoInfo *MemoWidget::getMemoInfo() const
+MemoInfo* MemoWidget::getMemoInfo() const
 {
     return memoInfo;
 }
@@ -286,21 +270,20 @@ void MemoWidget::loadStyleSheet(const QString colorName)
 
 void MemoWidget::setMode(Mode mode)
 {
-    switch (mode)
-    {
-        case EDIT:
-            setTopBtnVisibility(false);
-            setEditWidgetVisibility(true);
-            break;
-        case VIEW:
-            setTopBtnVisibility(false);
-            setEditWidgetVisibility(false);
-            break;
-        case SELECT:
-            setTopBtnVisibility(true);
-            setEditWidgetVisibility(false);
-        default:
-            break;
+    switch (mode) {
+    case EDIT:
+        setTopBtnVisibility(false);
+        setEditWidgetVisibility(true);
+        break;
+    case VIEW:
+        setTopBtnVisibility(false);
+        setEditWidgetVisibility(false);
+        break;
+    case SELECT:
+        setTopBtnVisibility(true);
+        setEditWidgetVisibility(false);
+    default:
+        break;
     }
 }
 
@@ -317,25 +300,19 @@ void MemoWidget::onEditBtnClicked()
 void MemoWidget::onPinBtnClicked()
 {
     isPinned = !isPinned;
-    if(isPinned)
-    {
+    if (isPinned) {
         pinBtn->setIcon(QIcon(":/image/widget/pin.png"));
-    }
-    else
-    {
+    } else {
         pinBtn->setIcon(QIcon(":/image/widget/unpin.png"));
     }
 }
 
 void MemoWidget::onStayOnTopBtnClicked()
 {
-    if (isStayOnTop)
-    {
+    if (isStayOnTop) {
         setWindowFlags(windowFlags() & ~Qt::WindowStaysOnTopHint & ~Qt::X11BypassWindowManagerHint);
         isStayOnTop = false;
-    }
-    else
-    {
+    } else {
         setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
         isStayOnTop = true;
     }
