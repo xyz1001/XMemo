@@ -7,7 +7,7 @@
 QT       += core gui
 QT       += sql
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets webenginewidgets
 
 TARGET = xmemo
 TEMPLATE = app
@@ -19,8 +19,6 @@ SOURCES += main.cpp\
     DbOperator.cpp \
     MemoInfo.cpp \
     MemoWidget.cpp \
-    ./contribute/cpp-markdown/markdown.cpp \
-    ./contribute/cpp-markdown/markdown-tokens.cpp \
     ./contribute/xswitch/xswitch.cpp
 
 HEADERS  += XMemo.h \
@@ -28,8 +26,6 @@ HEADERS  += XMemo.h \
     DbOperator.h \
     MemoInfo.h \
     MemoWidget.h \
-    ./contribute/cpp-markdown/markdown.h \
-    ./contribute/cpp-markdown/markdown-tokens.h \
     ./contribute/xswitch/xswitch.h
 
 RESOURCES += \
@@ -37,4 +33,4 @@ RESOURCES += \
 
 TRANSLATIONS    += zh_CN.ts
 
-LIBS += -lboost_regex
+LIBS += -lhoedown
